@@ -12,8 +12,13 @@ const PORT = process.env.PORT || 8000;
 const SECRET_KEY = "your_secret_key"; // Replace with a secure key
 const ACCESS_TOKEN_EXPIRE_MINUTES = 30;
 
-app.use(cors());
+const corsOptions = {
+  origin: ["https://tradegiftcard.net/", "https://tkcompany.vercel.app/"],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  optionsSuccessStatus: 204, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.post("/api/savePhoneNumber/", async (req, res) => {

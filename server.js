@@ -1,10 +1,38 @@
 const express = require('express');
 const cors = require('cors');
-const { DateTime } = require('luxon');
+const { Sequelize, DataTypes } = require('sequelize');
 const randomstring = require('randomstring');
 const csv = require('csv-parser');
 const fs = require('fs');
-const { LotteryTicket } = require('./models');
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'database.sqlite' // Adjust the path to your SQLite database file
+});
+
+const LotteryTicket = sequelize.define('LotteryTicket', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  ticket_code: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
+  result: {
+    type: DataTypes.STRING
+  },
+  used: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  use_count: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  }
+});
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -13,7 +41,7 @@ const ACCESS_TOKEN_EXPIRE_MINUTES = 30;
 const corsOptions = {
   origin: ["https://tradegiftcard.net/", "https://tkcompany.vercel.app/"],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  optionsSuccessStatus: 204, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
@@ -49,20 +77,24 @@ app.post("/api/savePhoneNumber/", async (req, res) => {
 });
 
 app.get("/api/tickets/", async (req, res) => {
-    const tickets = await LotteryTicket.find();
+    const tickets = await LotteryTicket.findAll();
     return res.status(200).json(tickets);
 });
 
 app.post("/api/generate_ticket/", async (req, res) => {
     const ticketCode = randomstring.generate({ length: 10, charset: 'alphanumeric' });
-    const ticket = new LotteryTicket({ ticket_code: ticketCode });
-    await ticket.save();
-    return res.status(200).json({ ticket_code: ticketCode });
+    try {
+        const ticket = await LotteryTicket.create({ ticket_code: ticketCode });
+        return res.status(200).json({ ticket_code: ticket.ticket_code });
+    } catch (error) {
+        console.error('Error generating ticket:', error);
+        return res.status(500).json({ message: 'Failed to generate ticket' });
+    }
 });
 
 app.post("/api/submit_ticket/:ticket_code", async (req, res) => {
     const ticketCode = req.params.ticket_code;
-    const ticket = await LotteryTicket.findOne({ ticket_code: ticketCode });
+    const ticket = await LotteryTicket.findOne({ where: { ticket_code: ticketCode } });
 
     if (!ticket) {
         return res.status(400).json({ message: 'Invalid ticket code' });
@@ -77,7 +109,7 @@ app.post("/api/submit_ticket/:ticket_code", async (req, res) => {
 
 app.get("/api/spin/:ticket_code", async (req, res) => {
     const ticketCode = req.params.ticket_code;
-    const ticket = await LotteryTicket.findOne({ ticket_code: ticketCode });
+    const ticket = await LotteryTicket.findOne({ where: { ticket_code: ticketCode } });
 
     if (!ticket) {
         return res.status(400).json({ message: 'Invalid ticket code' });
@@ -97,7 +129,7 @@ app.get("/api/spin/:ticket_code", async (req, res) => {
 
 app.get("/api/ticket_prize/:ticket_code", async (req, res) => {
     const ticketCode = req.params.ticket_code;
-    const ticket = await LotteryTicket.findOne({ ticket_code: ticketCode });
+    const ticket = await LotteryTicket.findOne({ where: { ticket_code: ticketCode } });
 
     if (!ticket) {
         return res.status(404).json({ message: 'Ticket not found' });

@@ -76,7 +76,7 @@ async def phoneNumberExists(phoneNumber: str):
                 return True
     return False
 
-@app.post("/savePhoneNumber/")
+@app.post("/api/savePhoneNumber/")
 async def save_phone_number(phone_data: dict):
     phoneNumber = phone_data.get('phoneNumber')
     if not phoneNumber:
@@ -117,7 +117,7 @@ async def authenticate_user(username: str, password: str):
         return user
     return None
 
-@app.post("/token")
+@app.post("/api/token")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = await authenticate_user(form_data.username, form_data.password)
     if not user:
@@ -133,17 +133,17 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 LotteryTicket_Pydantic = pydantic_model_creator(LotteryTicket, name="LotteryTicket")
 
-@app.get("/tickets/", response_model=List[LotteryTicket_Pydantic])
+@app.get("/api/tickets/", response_model=List[LotteryTicket_Pydantic])
 async def get_tickets():
     return await LotteryTicket_Pydantic.from_queryset(LotteryTicket.all())
 
-@app.post("/generate_ticket/")
+@app.post("/api/generate_ticket/")
 async def generate_ticket():
     ticket_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
     ticket = await LotteryTicket.create(ticket_code=ticket_code)
     return {"ticket_code": ticket.ticket_code}
 
-@app.post("/submit_ticket/{ticket_code}")
+@app.post("/api/submit_ticket/{ticket_code}")
 async def submit_ticket(ticket_code: str):
     ticket = await LotteryTicket.get_or_none(ticket_code=ticket_code)
     if ticket is None:
@@ -152,7 +152,7 @@ async def submit_ticket(ticket_code: str):
         # return {"result": "Ticket already used"}
         raise HTTPException(status_code=400, detail="Ticket already used")
     
-@app.get("/spin/{ticket_code}")
+@app.get("/api/spin/{ticket_code}")
 async def spin(ticket_code: str):
     ticket = await LotteryTicket.get_or_none(ticket_code=ticket_code)
     if ticket is None:
@@ -168,7 +168,7 @@ async def spin(ticket_code: str):
 
     return {"prize": result}
 
-@app.get("/ticket_prize/{ticket_code}")
+@app.get("/api/ticket_prize/{ticket_code}")
 async def get_ticket_prize(ticket_code: str, current_user: AdminUser = Security(get_current_user)):
     ticket = await LotteryTicket.get_or_none(ticket_code=ticket_code)
     if ticket is None:
@@ -178,7 +178,7 @@ async def get_ticket_prize(ticket_code: str, current_user: AdminUser = Security(
     return {"ticket_code": ticket.ticket_code, "prize": ticket.result}
 
 def get_random_result():
-    prizes = ["è°¢è°¢åä¸", "300", "600", "900", "1500", "3000", "8800", "åæ¥ä¸æ¬¡"]
+    prizes = ['谢谢参与', '300', '600', '900', '1500', '3000', '8800', '再来一次']
     probabilities = [0.10, 0.36, 0.25, 0.10, 0.5, 0.03, 0.01, 0.10]
     return random.choices(prizes, probabilities)[0]
 

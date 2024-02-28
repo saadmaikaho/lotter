@@ -1,0 +1,52 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "server.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/savePhoneNumber/",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/token",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/tickets/",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/generate_ticket/",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/submit_ticket/:ticket_code",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/spin/:ticket_code",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/ticket_prize/:ticket_code",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/example-route/",
+        "dest": "/server.js"
+      },
+      {
+        "handle": "filesystem"
+      },
+      {
+        "src": "/.*",
+        "status": 404,
+        "dest": "/404.html"
+      }
+    ]
+  }
+  

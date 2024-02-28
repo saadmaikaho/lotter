@@ -47,7 +47,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://www.tradegiftcard.net"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -168,6 +168,11 @@ async def get_ticket_prize(ticket_code: str, current_user: AdminUser = Security(
     if ticket.result is None:
         raise HTTPException(status_code=404, detail="No prize assigned to this ticket yet")
     return {"ticket_code": ticket.ticket_code, "prize": ticket.result}
+
+# Add a new route to handle a specific endpoint
+@app.get("/example-route/")
+async def example_route():
+    return {"message": "This is an example route"}
 
 def get_random_result():
     prizes = ["谢谢参与", "300", "600", "900", "1500", "3000", "8800", "再来一次"]

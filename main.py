@@ -49,7 +49,7 @@ templates = Jinja2Templates(directory="templates")
 # CORS configuration
 origins = [
     "https://tkcompany.vercel.app",
-    # Add other origins as needed
+    "https://tradegiftcard.net/"
 ]
 
 app.add_middleware(

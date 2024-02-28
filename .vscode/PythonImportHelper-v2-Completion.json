@@ -235,7 +235,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_random_result():\n    prizes = [\"谢谢参与\", \"300\", \"600\", \"900\", \"1500\", \"3000\", \"8800\", \"再来一次\"]\n    probabilities = [0.10, 0.36, 0.25, 0.10, 0.5, 0.03, 0.01, 0.10]\n    return random.choices(prizes, probabilities)[0]\nif __name__ == \"__main__\":\n    uvicorn.run(\"main:app\")",
+        "peekOfCode": "def get_random_result():\n    prizes = [\"è°¢è°¢åä¸\", \"300\", \"600\", \"900\", \"1500\", \"3000\", \"8800\", \"åæ¥ä¸æ¬¡\"]\n    probabilities = [0.10, 0.36, 0.25, 0.10, 0.5, 0.03, 0.01, 0.10]\n    return random.choices(prizes, probabilities)[0]\nif __name__ == \"__main__\":\n    uvicorn.run(\"main:app\")",
         "detail": "main",
         "documentation": {}
     },

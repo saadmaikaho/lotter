@@ -178,7 +178,7 @@ async def get_ticket_prize(ticket_code: str, current_user: AdminUser = Security(
     return {"ticket_code": ticket.ticket_code, "prize": ticket.result}
 
 def get_random_result():
-    prizes = ["谢谢参与", "300", "600", "900", "1500", "3000", "8800", "再来一次"]
+    prizes = ["è°¢è°¢åä¸", "300", "600", "900", "1500", "3000", "8800", "åæ¥ä¸æ¬¡"]
     probabilities = [0.10, 0.36, 0.25, 0.10, 0.5, 0.03, 0.01, 0.10]
     return random.choices(prizes, probabilities)[0]
 

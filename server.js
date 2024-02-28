@@ -1,15 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
 const { DateTime } = require('luxon');
 const randomstring = require('randomstring');
 const csv = require('csv-parser');
 const fs = require('fs');
-const { LotteryTicket, AdminUser } = require('./models');
+const { LotteryTicket } = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-const SECRET_KEY = "your_secret_key"; // Replace with a secure key
 const ACCESS_TOKEN_EXPIRE_MINUTES = 30;
 
 const corsOptions = {
@@ -48,18 +46,6 @@ app.post("/api/savePhoneNumber/", async (req, res) => {
                 return res.status(500).json({ message: 'Failed to save phone number' });
             }
         });
-});
-
-app.post("/api/token", async (req, res) => {
-    const { username, password } = req.body;
-    const user = await AdminUser.findOne({ username });
-
-    if (!user || !user.verifyPassword(password)) {
-        return res.status(401).json({ message: 'Incorrect username or password' });
-    }
-
-    const accessToken = jwt.sign({ username: user.username }, SECRET_KEY, { expiresIn: ACCESS_TOKEN_EXPIRE_MINUTES * 60 });
-    return res.status(200).json({ access_token: accessToken });
 });
 
 app.get("/api/tickets/", async (req, res) => {

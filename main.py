@@ -48,8 +48,8 @@ templates = Jinja2Templates(directory="templates")
 
 # CORS configuration
 origins = [
-    "https://tkcompany.vercel.app",
-    "https://tradegiftcard.net/"
+    "*",
+    # Add other origins as needed
 ]
 
 app.add_middleware(
@@ -76,7 +76,7 @@ async def phoneNumberExists(phoneNumber: str):
                 return True
     return False
 
-@app.post("/api/savePhoneNumber/")
+@app.post("/savePhoneNumber/")
 async def save_phone_number(phone_data: dict):
     phoneNumber = phone_data.get('phoneNumber')
     if not phoneNumber:
@@ -117,7 +117,7 @@ async def authenticate_user(username: str, password: str):
         return user
     return None
 
-@app.post("/api/token")
+@app.post("/token")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = await authenticate_user(form_data.username, form_data.password)
     if not user:
@@ -133,17 +133,17 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 LotteryTicket_Pydantic = pydantic_model_creator(LotteryTicket, name="LotteryTicket")
 
-@app.get("/api/tickets/", response_model=List[LotteryTicket_Pydantic])
+@app.get("/tickets/", response_model=List[LotteryTicket_Pydantic])
 async def get_tickets():
     return await LotteryTicket_Pydantic.from_queryset(LotteryTicket.all())
 
-@app.post("/api/generate_ticket/")
+@app.post("/generate_ticket/")
 async def generate_ticket():
     ticket_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
     ticket = await LotteryTicket.create(ticket_code=ticket_code)
     return {"ticket_code": ticket.ticket_code}
 
-@app.post("/api/submit_ticket/{ticket_code}")
+@app.post("/submit_ticket/{ticket_code}")
 async def submit_ticket(ticket_code: str):
     ticket = await LotteryTicket.get_or_none(ticket_code=ticket_code)
     if ticket is None:
@@ -152,7 +152,7 @@ async def submit_ticket(ticket_code: str):
         # return {"result": "Ticket already used"}
         raise HTTPException(status_code=400, detail="Ticket already used")
     
-@app.get("/api/spin/{ticket_code}")
+@app.get("/spin/{ticket_code}")
 async def spin(ticket_code: str):
     ticket = await LotteryTicket.get_or_none(ticket_code=ticket_code)
     if ticket is None:
@@ -168,19 +168,23 @@ async def spin(ticket_code: str):
 
     return {"prize": result}
 
-@app.get("/api/ticket_prize/{ticket_code}")
-async def get_ticket_prize(ticket_code: str, current_user: AdminUser = Security(get_current_user)):
+@app.get("/ticket_prize/{ticket_code}")
+async def get_ticket_prize(ticket_code: str):
+    # Retrieve prize information for the given ticket code
     ticket = await LotteryTicket.get_or_none(ticket_code=ticket_code)
     if ticket is None:
         raise HTTPException(status_code=404, detail="Ticket not found")
-    if ticket.result is None:
-        raise HTTPException(status_code=404, detail="No prize assigned to this ticket yet")
-    return {"ticket_code": ticket.ticket_code, "prize": ticket.result}
+    elif not ticket.used:
+        return {"message": "Ticket code has not been used yet"}
+    else:
+        return {"ticket_code": ticket_code, "prize": ticket.result}
+
 
 def get_random_result():
-    prizes = ['谢谢参与', '300', '600', '900', '1500', '3000', '8800', '再来一次']
-    probabilities = [0.10, 0.36, 0.25, 0.10, 0.5, 0.03, 0.01, 0.10]
-    return random.choices(prizes, probabilities)[0]
+    # Simulate getting a random result (prize)
+    prizes = ["谢谢参与", "300", "600", "900", "1500", "3000", "8800", "再来一次"]
+    return random.choice(prizes)
 
 if __name__ == "__main__":
-    uvicorn.run("main:app")
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)

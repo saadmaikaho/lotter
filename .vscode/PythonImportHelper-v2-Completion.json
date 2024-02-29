@@ -235,7 +235,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_random_result():\n    prizes = [\"è°¢è°¢åä¸\", \"300\", \"600\", \"900\", \"1500\", \"3000\", \"8800\", \"åæ¥ä¸æ¬¡\"]\n    probabilities = [0.10, 0.36, 0.25, 0.10, 0.5, 0.03, 0.01, 0.10]\n    return random.choices(prizes, probabilities)[0]\nif __name__ == \"__main__\":\n    uvicorn.run(\"main:app\")",
+        "peekOfCode": "def get_random_result():\n    # Simulate getting a random result (prize)\n    prizes = [\"谢谢参与\", \"300\", \"600\", \"900\", \"1500\", \"3000\", \"8800\", \"再来一次\"]\n    return random.choice(prizes)\nif __name__ == \"__main__\":\n    import uvicorn\n    uvicorn.run(app, host=\"127.0.0.1\", port=8000)",
         "detail": "main",
         "documentation": {}
     },
@@ -271,7 +271,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\ntemplates = Jinja2Templates(directory=\"templates\")\n# CORS configuration\norigins = [\n    \"https://tkcompany.vercel.app\",\n    # Add other origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,",
+        "peekOfCode": "app = FastAPI()\ntemplates = Jinja2Templates(directory=\"templates\")\n# CORS configuration\norigins = [\n    \"*\",\n    # Add other origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,",
         "detail": "main",
         "documentation": {}
     },
@@ -280,7 +280,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "templates = Jinja2Templates(directory=\"templates\")\n# CORS configuration\norigins = [\n    \"https://tkcompany.vercel.app\",\n    # Add other origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,\n    allow_credentials=True,",
+        "peekOfCode": "templates = Jinja2Templates(directory=\"templates\")\n# CORS configuration\norigins = [\n    \"*\",\n    # Add other origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,\n    allow_credentials=True,",
         "detail": "main",
         "documentation": {}
     },
@@ -289,7 +289,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "origins = [\n    \"https://tkcompany.vercel.app\",\n    # Add other origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"DELETE\"],\n    allow_headers=[\"*\"],",
+        "peekOfCode": "origins = [\n    \"*\",\n    # Add other origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"DELETE\"],\n    allow_headers=[\"*\"],",
         "detail": "main",
         "documentation": {}
     },

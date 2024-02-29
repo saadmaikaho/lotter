@@ -46,17 +46,13 @@ def verify_token(token: str, credentials_exception):
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-# CORS configuration
-origins = [
-    "*",
-    # Add other origins as needed
-]
+
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 

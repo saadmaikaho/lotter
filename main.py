@@ -52,8 +52,9 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET,HEAD,PUT,PATCH,POST,DELETE"],
     allow_headers=["*"],
+  optionsSuccessStatus= "204",
 )
 
 register_tortoise(

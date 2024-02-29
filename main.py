@@ -1,10 +1,8 @@
 from typing import List
 from fastapi import FastAPI, HTTPException, Security, Depends, status
-from fastapi.middleware.cors import CORSMiddleware
 from tortoise.contrib.fastapi import register_tortoise
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from tortoise.contrib.pydantic import pydantic_model_creator
-from fastapi.templating import Jinja2Templates
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 import random
@@ -13,6 +11,7 @@ import csv
 import uvicorn
 from models import LotteryTicket, AdminUser
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 class TokenData(BaseModel):
     username: str | None = None
@@ -44,16 +43,19 @@ def verify_token(token: str, credentials_exception):
     return token_data
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
 
-
+# Configure CORS settings
+origins = [
+    "https://tkcompany.vercel.app",
+    # Add other allowed origins as needed
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["GET,HEAD,PUT,PATCH,POST,DELETE"],
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
-  optionsSuccessStatus= "204",
 )
 
 register_tortoise(

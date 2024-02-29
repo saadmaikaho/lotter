@@ -2,51 +2,47 @@
     "version": 2,
     "builds": [
       {
-        "src": "server.js",
+        "src": "main.py",
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
-        "src": "/api/savePhoneNumber/",
-        "dest": "/server.js"
+        "src": "/savePhoneNumber/",
+        "dest": "main.py"
       },
       {
-        "src": "/api/token",
-        "dest": "/server.js"
+        "src": "/token",
+        "dest": "main.py"
       },
       {
-        "src": "/api/tickets/",
-        "dest": "/server.js"
+        "src": "/tickets/",
+        "dest": "main.py"
       },
       {
-        "src": "/api/generate_ticket/",
-        "dest": "/server.js"
+        "src": "/generate_ticket/",
+        "dest": "main.py"
       },
       {
-        "src": "/api/submit_ticket/:ticket_code",
-        "dest": "/server.js"
+        "src": "/submit_ticket/:ticket_code",
+        "dest": "main.py"
       },
       {
-        "src": "/api/spin/:ticket_code",
-        "dest": "/server.js"
+        "src": "/spin/:ticket_code",
+        "dest": "main.py"
       },
       {
-        "src": "/api/ticket_prize/:ticket_code",
-        "dest": "/server.js"
+        "src": "/ticket_prize/:ticket_code",
+        "dest": "main.py"
       },
       {
-        "src": "/api/example-route/",
-        "dest": "/server.js"
+        "src": "/example-route/",
+        "dest": "main.py"
       },
       {
         "handle": "filesystem"
-      },
-      {
-        "src": "/.*",
-        "status": 404,
-        "dest": "/404.html"
       }
+      
     ]
   }
   

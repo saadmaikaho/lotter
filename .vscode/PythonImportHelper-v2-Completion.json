@@ -271,7 +271,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\ntemplates = Jinja2Templates(directory=\"templates\")\n# CORS configuration\norigins = [\n    \"https://tkcompany.vercel.app\", \"https://www.tradegiftcard.net/\"\n    # Add other origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,",
+        "peekOfCode": "app = FastAPI()\ntemplates = Jinja2Templates(directory=\"templates\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\nregister_tortoise(",
         "detail": "main",
         "documentation": {}
     },
@@ -280,16 +280,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "templates = Jinja2Templates(directory=\"templates\")\n# CORS configuration\norigins = [\n    \"https://tkcompany.vercel.app\", \"https://www.tradegiftcard.net/\"\n    # Add other origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,\n    allow_credentials=True,",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "origins",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "origins = [\n    \"https://tkcompany.vercel.app\", \"https://www.tradegiftcard.net/\"\n    # Add other origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],",
+        "peekOfCode": "templates = Jinja2Templates(directory=\"templates\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\nregister_tortoise(\n    app,",
         "detail": "main",
         "documentation": {}
     },

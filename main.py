@@ -13,6 +13,18 @@ from models import LotteryTicket, AdminUser
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
+)
+
+
 class TokenData(BaseModel):
     username: str | None = None
 
@@ -41,17 +53,6 @@ def verify_token(token: str, credentials_exception):
     except JWTError as e:
         raise credentials_exception
     return token_data
-
-app = FastAPI()
-
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
-    allow_headers=["*"],
-)
 
 register_tortoise(
     app,

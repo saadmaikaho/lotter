@@ -44,15 +44,10 @@ def verify_token(token: str, credentials_exception):
 
 app = FastAPI()
 
-# Configure CORS settings
-origins = [
-    "https://tkcompany.vercel.app",
-    # Add other allowed origins as needed
-]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],

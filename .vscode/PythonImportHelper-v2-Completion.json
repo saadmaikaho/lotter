@@ -263,16 +263,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\n# Configure CORS settings\norigins = [\n    \"https://tkcompany.vercel.app\",\n    # Add other allowed origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,\n    allow_credentials=True,",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "origins",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "origins = [\n    \"https://tkcompany.vercel.app\",\n    # Add other allowed origins as needed\n]\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=origins,\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"DELETE\"],\n    allow_headers=[\"*\"],",
+        "peekOfCode": "app = FastAPI()\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"DELETE\"],\n    allow_headers=[\"*\"],\n)\nregister_tortoise(\n    app,",
         "detail": "main",
         "documentation": {}
     },

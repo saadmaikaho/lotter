@@ -2,17 +2,19 @@ from typing import List
 from fastapi import FastAPI, HTTPException
 from tortoise.contrib.fastapi import register_tortoise
 from tortoise.contrib.pydantic import pydantic_model_creator
-from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timedelta
 import random
+import uvicorn
 import string
 import csv
 
 from models import LotteryTicket  # Import your LotteryTicket model from models.py
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# CORS Configuration
+
+# Add CORS middleware to allow requests from your frontend domain
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://tkcompany.vercel.app"],
@@ -20,6 +22,7 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
+
 
 # Create Pydantic model for LotteryTicket
 LotteryTicket_Pydantic = pydantic_model_creator(LotteryTicket, name="LotteryTicket")
@@ -114,5 +117,4 @@ register_tortoise(
 )
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app)

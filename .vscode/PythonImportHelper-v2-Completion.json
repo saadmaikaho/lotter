@@ -128,7 +128,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\n# CORS Configuration\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"DELETE\"],\n    allow_headers=[\"*\"],\n)\n# Create Pydantic model for LotteryTicket",
+        "peekOfCode": "app = FastAPI()\n# CORS Configuration\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"https://tkcompany.vercel.app\"],\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"DELETE\"],\n    allow_headers=[\"*\"],\n)\n# Create Pydantic model for LotteryTicket",
         "detail": "main",
         "documentation": {}
     },

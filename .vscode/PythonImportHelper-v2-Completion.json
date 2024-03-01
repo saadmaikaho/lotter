@@ -128,7 +128,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\n# CORS Configuration\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"https://tkcompany.vercel.app\"],\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"DELETE\"],\n    allow_headers=[\"*\"],\n)\n# Create Pydantic model for LotteryTicket",
+        "peekOfCode": "app = FastAPI()\n# CORS Configuration\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"DELETE\"],\n    allow_headers=[\"*\"],\n)\n# Create Pydantic model for LotteryTicket",
         "detail": "main",
         "documentation": {}
     },
@@ -146,7 +146,7 @@
         "kind": 6,
         "importPath": "models",
         "description": "models",
-        "peekOfCode": "class LotteryTicket(models.Model):\n    id = fields.IntField(pk=True)\n    ticket_code = fields.CharField(max_length=50, unique=True)\n    result = fields.CharField(max_length=50, null=True)\n    used = fields.BooleanField(default=False)\n    use_count = fields.IntField(default=0)  # æ°å¢å­æ®µï¼è¡¨ç¤ºä½¿ç¨æ¬¡æ°\nclass AdminUser(models.Model):\n    id = fields.IntField(pk=True)\n    username = fields.CharField(max_length=20, unique=True)\n    password = fields.CharField(max_length=128)  # ç´æ¥å­å¨ææå¯ç ",
+        "peekOfCode": "class LotteryTicket(models.Model):\n    id = fields.IntField(pk=True)\n    ticket_code = fields.CharField(max_length=50, unique=True)\n    result = fields.CharField(max_length=50, null=True)\n    used = fields.BooleanField(default=False)\n    use_count = fields.IntField(default=0) \nclass AdminUser(models.Model):\n    id = fields.IntField(pk=True)\n    username = fields.CharField(max_length=20, unique=True)\n    password = fields.CharField(max_length=128) ",
         "detail": "models",
         "documentation": {}
     },
@@ -155,7 +155,7 @@
         "kind": 6,
         "importPath": "models",
         "description": "models",
-        "peekOfCode": "class AdminUser(models.Model):\n    id = fields.IntField(pk=True)\n    username = fields.CharField(max_length=20, unique=True)\n    password = fields.CharField(max_length=128)  # ç´æ¥å­å¨ææå¯ç \n    @classmethod\n    async def create_admin(cls):\n        username = \"saaduu123\"\n        password = \"saaduu@123\"\n        existing_user = await cls.get_or_none(username=username)\n        if existing_user is None:",
+        "peekOfCode": "class AdminUser(models.Model):\n    id = fields.IntField(pk=True)\n    username = fields.CharField(max_length=20, unique=True)\n    password = fields.CharField(max_length=128) \n    @classmethod\n    async def create_admin(cls):\n        username = \"saaduu123\"\n        password = \"saaduu@123\"\n        existing_user = await cls.get_or_none(username=username)\n        if existing_user is None:",
         "detail": "models",
         "documentation": {}
     }

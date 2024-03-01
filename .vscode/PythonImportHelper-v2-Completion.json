@@ -24,30 +24,6 @@
         "documentation": {}
     },
     {
-        "label": "Security",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Depends",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "status",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
         "label": "register_tortoise",
         "importPath": "tortoise.contrib.fastapi",
         "description": "tortoise.contrib.fastapi",
@@ -56,27 +32,19 @@
         "documentation": {}
     },
     {
-        "label": "OAuth2PasswordBearer",
-        "importPath": "fastapi.security",
-        "description": "fastapi.security",
-        "isExtraImport": true,
-        "detail": "fastapi.security",
-        "documentation": {}
-    },
-    {
-        "label": "OAuth2PasswordRequestForm",
-        "importPath": "fastapi.security",
-        "description": "fastapi.security",
-        "isExtraImport": true,
-        "detail": "fastapi.security",
-        "documentation": {}
-    },
-    {
         "label": "pydantic_model_creator",
         "importPath": "tortoise.contrib.pydantic",
         "description": "tortoise.contrib.pydantic",
         "isExtraImport": true,
         "detail": "tortoise.contrib.pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
         "documentation": {}
     },
     {
@@ -93,22 +61,6 @@
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "JWTError",
-        "importPath": "jose",
-        "description": "jose",
-        "isExtraImport": true,
-        "detail": "jose",
-        "documentation": {}
-    },
-    {
-        "label": "jwt",
-        "importPath": "jose",
-        "description": "jose",
-        "isExtraImport": true,
-        "detail": "jose",
         "documentation": {}
     },
     {
@@ -139,44 +91,11 @@
         "documentation": {}
     },
     {
-        "label": "uvicorn",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "uvicorn",
-        "description": "uvicorn",
-        "detail": "uvicorn",
-        "documentation": {}
-    },
-    {
         "label": "LotteryTicket",
         "importPath": "models",
         "description": "models",
         "isExtraImport": true,
         "detail": "models",
-        "documentation": {}
-    },
-    {
-        "label": "AdminUser",
-        "importPath": "models",
-        "description": "models",
-        "isExtraImport": true,
-        "detail": "models",
-        "documentation": {}
-    },
-    {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "CORSMiddleware",
-        "importPath": "fastapi.middleware.cors",
-        "description": "fastapi.middleware.cors",
-        "isExtraImport": true,
-        "detail": "fastapi.middleware.cors",
         "documentation": {}
     },
     {
@@ -196,38 +115,11 @@
         "documentation": {}
     },
     {
-        "label": "TokenData",
-        "kind": 6,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "class TokenData(BaseModel):\n    username: str | None = None\n# JWT configuration\nSECRET_KEY = \"your_secret_key\"  # Replace with a secure key\nALGORITHM = \"HS256\"\nACCESS_TOKEN_EXPIRE_MINUTES = 30\ndef create_access_token(data: dict, expires_delta: timedelta | None = None):\n    to_encode = data.copy()\n    if expires_delta:\n        expire = datetime.utcnow() + expires_delta",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "create_access_token",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def create_access_token(data: dict, expires_delta: timedelta | None = None):\n    to_encode = data.copy()\n    if expires_delta:\n        expire = datetime.utcnow() + expires_delta\n    else:\n        expire = datetime.utcnow() + timedelta(minutes=15)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\n    return encoded_jwt\ndef verify_token(token: str, credentials_exception):",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "verify_token",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def verify_token(token: str, credentials_exception):\n    try:\n        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])\n        username: str = payload.get(\"sub\")\n        if username is None:\n            raise credentials_exception\n        token_data = TokenData(username=username)\n    except JWTError as e:\n        raise credentials_exception\n    return token_data",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
         "label": "get_random_result",
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_random_result():\n    # Simulate getting a random result (prize)\n    prizes = [\"谢谢参与\", \"300\", \"600\", \"900\", \"1500\", \"3000\", \"8800\", \"再来一次\"]\n    return random.choice(prizes)\nif __name__ == \"__main__\":\n    import uvicorn\n    uvicorn.run(app, host=\"127.0.0.1\", port=8000)",
+        "peekOfCode": "def get_random_result():\n    # Simulate getting a random result (prize)\n    prizes = [\"谢谢参与\", \"300\", \"600\", \"900\", \"1500\", \"3000\", \"8800\", \"再来一次\"]\n    return random.choice(prizes)\n# Register Tortoise ORM\nregister_tortoise(\n    app,\n    db_url='sqlite://data/db.sqlite3',\n    modules={'models': ['models']},\n    generate_schemas=True,",
         "detail": "main",
         "documentation": {}
     },
@@ -236,43 +128,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"https://tkcompany.vercel.app\"],\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"DELETE\"],\n    allow_headers=[\"*\"],\n)\nclass TokenData(BaseModel):\n    username: str | None = None",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "SECRET_KEY",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "SECRET_KEY = \"your_secret_key\"  # Replace with a secure key\nALGORITHM = \"HS256\"\nACCESS_TOKEN_EXPIRE_MINUTES = 30\ndef create_access_token(data: dict, expires_delta: timedelta | None = None):\n    to_encode = data.copy()\n    if expires_delta:\n        expire = datetime.utcnow() + expires_delta\n    else:\n        expire = datetime.utcnow() + timedelta(minutes=15)\n    to_encode.update({\"exp\": expire})",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "ALGORITHM",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "ALGORITHM = \"HS256\"\nACCESS_TOKEN_EXPIRE_MINUTES = 30\ndef create_access_token(data: dict, expires_delta: timedelta | None = None):\n    to_encode = data.copy()\n    if expires_delta:\n        expire = datetime.utcnow() + expires_delta\n    else:\n        expire = datetime.utcnow() + timedelta(minutes=15)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "ACCESS_TOKEN_EXPIRE_MINUTES",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "ACCESS_TOKEN_EXPIRE_MINUTES = 30\ndef create_access_token(data: dict, expires_delta: timedelta | None = None):\n    to_encode = data.copy()\n    if expires_delta:\n        expire = datetime.utcnow() + expires_delta\n    else:\n        expire = datetime.utcnow() + timedelta(minutes=15)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\n    return encoded_jwt",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "oauth2_scheme",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\nasync def get_current_user(token: str = Depends(oauth2_scheme)):\n    credentials_exception = HTTPException(\n        status_code=status.HTTP_401_UNAUTHORIZED,\n        detail=\"Could not validate credentials\",\n        headers={\"WWW-Authenticate\": \"Bearer\"},\n    )\n    return verify_token(token, credentials_exception)\nasync def authenticate_user(username: str, password: str):\n    user = await AdminUser.get_or_none(username=username)",
+        "peekOfCode": "app = FastAPI()\n# CORS Configuration\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"https://tkcompany.vercel.app\"],\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"DELETE\"],\n    allow_headers=[\"*\"],\n)\n# Create Pydantic model for LotteryTicket",
         "detail": "main",
         "documentation": {}
     },
@@ -281,7 +137,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "LotteryTicket_Pydantic = pydantic_model_creator(LotteryTicket, name=\"LotteryTicket\")\n@app.get(\"/tickets/\", response_model=List[LotteryTicket_Pydantic])\nasync def get_tickets():\n    return await LotteryTicket_Pydantic.from_queryset(LotteryTicket.all())\n@app.post(\"/generate_ticket/\")\nasync def generate_ticket():\n    ticket_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))\n    ticket = await LotteryTicket.create(ticket_code=ticket_code)\n    return {\"ticket_code\": ticket.ticket_code}\n@app.post(\"/submit_ticket/{ticket_code}\")",
+        "peekOfCode": "LotteryTicket_Pydantic = pydantic_model_creator(LotteryTicket, name=\"LotteryTicket\")\nasync def phoneNumberExists(phoneNumber: str):\n    with open('data.csv', newline='') as csvfile:\n        reader = csv.reader(csvfile)\n        for row in reader:\n            if phoneNumber == row[0]:\n                return True\n    return False\n@app.post(\"/savePhoneNumber/\")\nasync def save_phone_number(phone_data: dict):",
         "detail": "main",
         "documentation": {}
     },
